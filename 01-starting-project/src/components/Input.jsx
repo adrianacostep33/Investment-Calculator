@@ -1,10 +1,11 @@
 import { useState } from "react";
 
-const Input = ({ lable }) => {
+const Input = ({ name, lable, onDetailsChange }) => {
   const [value, setValue] = useState("");
 
   const handleChange = (event) => {
     setValue(event.target.value);
+    onDetailsChange(name, event.target.value);
   };
 
   return (
