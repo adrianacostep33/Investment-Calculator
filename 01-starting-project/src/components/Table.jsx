@@ -1,25 +1,46 @@
-const Table = ({ results }) => {
+import { calculateInvestmentResults, formatter } from "../util/investment";
+
+const Table = ({ investmentDetails }) => {
+  const results = calculateInvestmentResults(investmentDetails);
+
   return (
     <table id="result">
       <thead>
         <tr>
-          <th scope="col">Year</th>
-          <th scope="col">Investment Value</th>
-          <th scope="col">Interest(Year)</th>
-          <th scope="col">Total Interest</th>
-          <th scope="col">Invested Capital</th>
+          <th scope="col" className="center">
+            Year
+          </th>
+          <th scope="col" className="center">
+            Investment Value
+          </th>
+          <th scope="col" className="center">
+            Interest(Year)
+          </th>
+          <th scope="col" className="center">
+            Total Interest
+          </th>
+          <th scope="col" className="center">
+            Invested Capital
+          </th>
         </tr>
       </thead>
       <tbody>
         {results &&
           results.map((result) => {
+            const totalInterest =
+              result.valueEndOfYear -
+              (result.year * result.annualInvestment +
+                investmentDetails.initialInvestment);
+            const investedCapital = result.valueEndOfYear - totalInterest;
             return (
               <tr key={result.year}>
-                <td>{result.year}</td>
-                <td>{result.investmentValue}</td>
-                <td>{result.interest}</td>
-                <td>{result.total}</td>
-                <td>{result.capital}</td>
+                <td className="center">{result.year}</td>
+                <td className="center">
+                  {formatter.format(result.valueEndOfYear)}
+                </td>
+                <td className="center">{formatter.format(result.interest)}</td>
+                <td className="center">{formatter.format(totalInterest)}</td>
+                <td className="center">{formatter.format(investedCapital)}</td>
               </tr>
             );
           })}
