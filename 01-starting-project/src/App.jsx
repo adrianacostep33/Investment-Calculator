@@ -7,7 +7,7 @@ export const INVESTMENTS_DETAILS = {
   initialInvestment: 0,
   annualInvestment: 0,
   expectedReturn: 0,
-  duration: 0,
+  duration: 1,
 };
 
 function App() {
@@ -26,12 +26,19 @@ function App() {
   return (
     <>
       <Header />
-      
+
       <InvestmentForm
         handleInvestmentDetailsChange={handleInvestmentDetailsChange}
       />
 
-      <Table investmentDetails={investmentDetails} />
+      {investmentDetails.duration < 1 && (
+        <p className="center">
+          Investment duration must be higher than one year
+        </p>
+      )}
+      {investmentDetails.duration >= 1 && (
+        <Table investmentDetails={investmentDetails} />
+      )}
     </>
   );
 }

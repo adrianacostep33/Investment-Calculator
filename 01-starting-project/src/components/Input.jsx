@@ -11,7 +11,7 @@ const Input = ({ name, lable, onDetailsChange }) => {
   return (
     <span>
       <label htmlFor={lable}>{lable}</label>
-      <input type="number" value={value} onChange={handleChange} />
+      <input type="number" value={value} onChange={handleChange} min={0} />
     </span>
   );
 };
