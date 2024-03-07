@@ -1,12 +1,13 @@
 import { useState } from "react";
 import Header from "./components/Header";
 import InvestmentForm from "./components/InvestmentForm";
+import Table from "./components/Table";
 
 export const INVESTMENTS_DETAILS = {
   initialInvestment: 0,
   annualInvestment: 0,
   expectedReturn: 0,
-  duration: 0,
+  duration: 1,
 };
 
 function App() {
@@ -17,7 +18,7 @@ function App() {
     setInvestmentDetails((prevInvestment) => {
       return {
         ...prevInvestment,
-        [investmentDetailField]: newValue,
+        [investmentDetailField]: +newValue,
       };
     });
   };
@@ -25,9 +26,19 @@ function App() {
   return (
     <>
       <Header />
+
       <InvestmentForm
         handleInvestmentDetailsChange={handleInvestmentDetailsChange}
       />
+
+      {investmentDetails.duration < 1 && (
+        <p className="center">
+          Investment duration must be higher than one year
+        </p>
+      )}
+      {investmentDetails.duration >= 1 && (
+        <Table investmentDetails={investmentDetails} />
+      )}
     </>
   );
 }
